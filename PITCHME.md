@@ -1,101 +1,259 @@
 ---
 
 @title[Introduction]
-### Apache Spark
-### AWS Lambda Executor
-### (SAMBA)
+### NODE JS
+---
 
-<span style="color:gray">An Apache Spark Package</span>
+@title[Agenda]
+### NODE JS
 
 ---
 
-@title[Apache Spark Package]
-### SAMBA Apache Spark Package
-
-  - Offers seamless integration with the AWS Lambda compute service
-  - Within Spark batch and streaming apps on the JVM
-
+@title[what is Node?]
+### So, what is Node?
+- Open source server framework
+- Free
+- Runs on various platforms (Windows, Linux, Unix, Mac OS X, etc.)
+- Uses JavaScript on the server
+---
+@title[Why Node.js?]
+### Why Node.js?
+- Asynchronous programming
+- Eliminates the waiting
+- Runs single-threaded, non-blocking
 ---
 
-### SAMBA API
+@title[Getting started with Node]
+### Getting started with Node
+- Download and Install Node for your machine at: https://nodejs.org/
+- Click on the big green Install button
+- Create a Node.js file named "myfirst.js", and add the following code:
+```js
+var http = require('http');
 
-<ol>
-<li class="fragment">New `delegate` operation on RDD[<span style="color:gray">AWSTask</span>]</li>
-<li class="fragment">This operation executes AWS Lambda functions</li>
-<li class="fragment">And generates RDD[<span style="color:gray">AWSResult</span>]</li>
-</ol>
-
-<span class="fragment" style="font-size: 0.8em; color:gray">The SAMBA API is built on top of the <a target="_blank" href="https://github.com/onetapbeyond/aws-gataway-executor">aws-gateway-executor</a> library.</span>
-
+http.createServer(function (req, res) {
+    res.writeHead(200, {'Content-Type': 'text/html'});
+    res.end('Hello World!');
+}).listen(8080);
+```
 ---
-
-### aws-gateway-executor
-
-- A lightweight, fluent Java library
-- For calling APIs on the Amazon Web Service API Gateway
-- Inside any application running on the JVM
-- Defines <span style="color:gray">AWSGateway</span>, <span style="color:gray">AWSTask</span> and <span style="color:gray">AWSResult</span>
+@title[Node.js Modules]
+### Node.js Modules
+- Http module
+- File system
+- Event module
 
 +++
 
-### AWSGateway
+@title[Http Module]
+### Http Module
+```js
+var http = require('http');
+var url = require('url');
 
-<span style="color:gray">A handle that represents an API on the AWS API Gateway.</span>
-
-```Java
-AWSGateway gateway = AWS.Gateway(echo-api-key)
-                        .stage("beta")
-                        .region(AWS.Region.OREGON)
-                        .build();
+http.createServer(function (req, res) {
+  res.writeHead(200, {'Content-Type': 'text/html'});
+  var q = url.parse(req.url, true).query;
+  var txt = q.year + " " + q.month;
+  res.end(txt);
+}).listen(8080);
 ```
-
-
 +++
 
-### AWSTask
-
-<span style="color:gray">An executable object that represents an AWS Gateway call.</span>
-
-```Java
-AWSTask aTask = AWS.Task(gateway)
-                   .resource("/echo")
-                   .get();
-
+@title[File system]
+### File system
+- Read/Create/Update/Delete/Rename files
+```html
+<html>
+<body>
+<h1>My Header</h1>
+<p>My paragraph.</p>
+</body>
+</html>
 ```
-
+```js
+var http = require('http');
+var fs = require('fs');
+http.createServer(function (req, res) {
+  fs.readFile('demofile1.html', function(err, data) {
+    res.writeHead(200, {'Content-Type': 'text/html'});
+    res.write(data);
+    res.end();
+  });
+}).listen(8080);
+```
 +++
 
-### AWSResult
+@title[Event module]
+### Event module
+- Node.js has a built-in module, called "Events", where you can create-, fire-, and listen for- your own events.
+- All event properties and methods are an instance of an EventEmitter object
+```js
+var events = require('events');
+var eventEmitter = new events.EventEmitter();
 
-<span style="color:gray">An object that represents the result of an AWS Gateway call.</span>
+//Create an event handler:
+var myEventHandler = function () {
+  console.log('I hear a scream!');
+}
 
-```Java
-AWSResult aResult = aTask.execute();
+//Assign the event handler to an event:
+eventEmitter.on('scream', myEventHandler);
+
+//Fire the 'scream' event:
+eventEmitter.emit('scream');
 ```
-
+---
+@title[NPM]
+### NPM 
+- NPM is a package manager for Node.js packages, or modules
+- www.npmjs.com hosts thousands of free packages to download and use.
+- Download a Package
+```sh
+C:\Users\Your Name>npm install upper-case
+```
+- Using a Package
+```js
+var uc = require('upper-case');
+```
 ---
 
-@title[Batch Processing]
-### SAMBA + Apache Spark Batch Processing
+@title[Node.js MongoDB]
+### Node.js MongoDB
+- Install Mongo
+- Install MongoDB Driver
+```sh
+C:\Users\Your Name>npm install mongodb
+```
+- Creating a Database
+- Creating a Collection
 
-+++?gist=onetapbeyond/494e0fecaf0d6a2aa2acadfb8eb9d6e8&title=SAMBA Code-Walk
-@[41-53](Build RDD[AWSTask])
-@[57-62](Delegate RDD[AWSTask] to AWS Lambda)
-@[64-75](Process RDD[AWSResult] from AWS Lambda)
++++ 
 
+@title[Creating a Database]
+### Creating a Database 
+- MongoDB will create the database if it does not exist, and make a connection to it.
+```js
+var MongoClient = require('mongodb').MongoClient;
+var url = "mongodb://localhost:27017/mydb";
+
+MongoClient.connect(url, function(err, db) {
+  if (err) throw err;
+  console.log("Database created!");
+  db.close();
+});
+```
++++ 
+
+@title[Creating a Collection]
+### Creating a Collection
+- To create a collection in MongoDB, use the createCollection() method:
+```js
+var MongoClient = require('mongodb').MongoClient;
+var url = "mongodb://localhost:27017/mydb";
+
+MongoClient.connect(url, function(err, db) {
+  if (err) throw err;
+  db.createCollection("customers", function(err, res) {
+    if (err) throw err;
+    console.log("Collection created!");
+    db.close();
+  });
+});
+```
 ---
+@title[Node.js - Express Framework]
+### Node.js - Express Framework
+- Allows to set up middlewares to respond to HTTP Requests.
+- Defines a routing table which is used to perform different actions based on HTTP Method and URL.
+- Allows to dynamically render HTML Pages based on passing arguments to templates.
+```sh
+$ npm install express --save
+```
++++ 
 
-#### SAMBA Deployment Architecture
+@title[Hello world Example]
+### Hello world Example
+```js
+var express = require('express');
+var app = express();
 
-@title[Deployment Architecture]
-![SAMBA Deployment](https://onetapbeyond.github.io/resource/img/samba/new-samba-deploy.jpg)
+app.get('/', function (req, res) {
+   res.send('Hello World');
+})
 
----
+var server = app.listen(8081, function () {
+   var host = server.address().address
+   var port = server.address().port
+   
+   console.log("Example app listening at http://%s:%s", host, port)
+})
+```
++++
+@title[Basic Routing]
+### Basic Routing
+```js
+var express = require('express');
+var app = express();
 
-#### Some Related Links
+// This responds with "Hello World" on the homepage
+app.get('/', function (req, res) {
+   console.log("Got a GET request for the homepage");
+   res.send('Hello GET');
+})
 
-- [GitHub: SAMBA Package](https://github.com/onetapbeyond/lambda-spark-executor)
-- [GitHub: SAMBA Examples](https://github.com/onetapbeyond/lambda-spark-executor#samba-examples)
-- [GitHub: aws-gateway-executor](https://github.com/onetapbeyond/aws-gateway-executor)
-- [GitHub: Apache Spark](https://github.com/apache/spark)
-- [Apache Spark Packages](https://spark-packages.org/package/onetapbeyond/lambda-spark-executor)
+// This responds a POST request for the homepage
+app.post('/', function (req, res) {
+   console.log("Got a POST request for the homepage");
+   res.send('Hello POST');
+})
+
+// This responds a DELETE request for the /del_user page.
+app.delete('/del_user', function (req, res) {
+   console.log("Got a DELETE request for /del_user");
+   res.send('Hello DELETE');
+})
+
+// This responds a GET request for the /list_user page.
+app.get('/list_user', function (req, res) {
+   console.log("Got a GET request for /list_user");
+   res.send('Page Listing');
+})
+
+// This responds a GET request for abcd, abxcd, ab123cd, and so on
+app.get('/ab*cd', function(req, res) {   
+   console.log("Got a GET request for /ab*cd");
+   res.send('Page Pattern Match');
+})
+
+var server = app.listen(8081, function () {
+
+   var host = server.address().address
+   var port = server.address().port
+
+   console.log("Example app listening at http://%s:%s", host, port)
+})
+```
++++
+
+@title[Serving Static Files]
+### Serving Static Files
+- Express provides a built-in middleware express.static to serve static files, such as images, CSS, JavaScript, etc.
+```js
+var express = require('express');
+var app = express();
+
+app.use(express.static('public'));
+
+app.get('/', function (req, res) {
+   res.send('Hello World');
+})
+
+var server = app.listen(8081, function () {
+   var host = server.address().address
+   var port = server.address().port
+
+   console.log("Example app listening at http://%s:%s", host, port)
+
+})
+```
