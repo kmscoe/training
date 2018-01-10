@@ -3,12 +3,6 @@
 @title[Introduction]
 ### NODE JS
 ---
-
-@title[Agenda]
-### NODE JS
-
----
-
 @title[what is Node?]
 ### So, what is Node?
 - Open source server framework
@@ -28,6 +22,7 @@
 - Download and Install Node for your machine at: https://nodejs.org/
 - Click on the big green Install button
 - Create a Node.js file named "myfirst.js", and add the following code:
+
 ```js
 var http = require('http');
 
@@ -47,6 +42,7 @@ http.createServer(function (req, res) {
 
 @title[Http Module]
 ### Http Module
+
 ```js
 var http = require('http');
 var url = require('url');
@@ -71,6 +67,7 @@ http.createServer(function (req, res) {
 </body>
 </html>
 ```
+
 ```js
 var http = require('http');
 var fs = require('fs');
@@ -88,6 +85,7 @@ http.createServer(function (req, res) {
 ### Event module
 - Node.js has a built-in module, called "Events", where you can create-, fire-, and listen for- your own events.
 - All event properties and methods are an instance of an EventEmitter object
+
 ```js
 var events = require('events');
 var eventEmitter = new events.EventEmitter();
@@ -109,10 +107,12 @@ eventEmitter.emit('scream');
 - NPM is a package manager for Node.js packages, or modules
 - www.npmjs.com hosts thousands of free packages to download and use.
 - Download a Package
+
 ```sh
 C:\Users\Your Name>npm install upper-case
 ```
 - Using a Package
+
 ```js
 var uc = require('upper-case');
 ```
@@ -122,6 +122,7 @@ var uc = require('upper-case');
 ### Node.js MongoDB
 - Install Mongo
 - Install MongoDB Driver
+
 ```sh
 C:\Users\Your Name>npm install mongodb
 ```
@@ -133,6 +134,7 @@ C:\Users\Your Name>npm install mongodb
 @title[Creating a Database]
 ### Creating a Database 
 - MongoDB will create the database if it does not exist, and make a connection to it.
+
 ```js
 var MongoClient = require('mongodb').MongoClient;
 var url = "mongodb://localhost:27017/mydb";
@@ -148,6 +150,7 @@ MongoClient.connect(url, function(err, db) {
 @title[Creating a Collection]
 ### Creating a Collection
 - To create a collection in MongoDB, use the createCollection() method:
+
 ```js
 var MongoClient = require('mongodb').MongoClient;
 var url = "mongodb://localhost:27017/mydb";
@@ -167,6 +170,7 @@ MongoClient.connect(url, function(err, db) {
 - Allows to set up middlewares to respond to HTTP Requests.
 - Defines a routing table which is used to perform different actions based on HTTP Method and URL.
 - Allows to dynamically render HTML Pages based on passing arguments to templates.
+
 ```sh
 $ npm install express --save
 ```
@@ -174,6 +178,7 @@ $ npm install express --save
 
 @title[Hello world Example]
 ### Hello world Example
+
 ```js
 var express = require('express');
 var app = express();
@@ -192,6 +197,7 @@ var server = app.listen(8081, function () {
 +++
 @title[Basic Routing]
 ### Basic Routing
+
 ```js
 var express = require('express');
 var app = express();
@@ -239,6 +245,7 @@ var server = app.listen(8081, function () {
 @title[Serving Static Files]
 ### Serving Static Files
 - Express provides a built-in middleware express.static to serve static files, such as images, CSS, JavaScript, etc.
+
 ```js
 var express = require('express');
 var app = express();
