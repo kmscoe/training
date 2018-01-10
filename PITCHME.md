@@ -111,6 +111,7 @@ eventEmitter.emit('scream');
 ```sh
 C:\Users\Your Name>npm install upper-case
 ```
+
 - Using a Package
 
 ```js
