@@ -107,12 +107,11 @@ eventEmitter.emit('scream');
 - NPM is a package manager for Node.js packages, or modules
 - www.npmjs.com hosts thousands of free packages to download and use.
 - Download a Package
+- Using a Package
 
 ```sh
 C:\Users\Your Name>npm install upper-case
 ```
-
-- Using a Package
 
 ```js
 var uc = require('upper-case');
