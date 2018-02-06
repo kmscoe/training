@@ -346,7 +346,7 @@ npm start
 
 +++
 @title[Node.js - Project structure]
-### Express Generator - Project structure
+### Project structure
 ```sh
 .
 ├── app.js
