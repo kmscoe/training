@@ -307,7 +307,11 @@ app.use(cookieParser())
 ```js
 const app = express()
 app.use( (req, res, next)=> {
-  console.log('Time:', Date.now());
+  console.log('Middleware 1');
+  next();
+})
+app.use( (req, res, next)=> {
+  console.log('Middleware 2');
   next();
 })
 ```
