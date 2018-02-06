@@ -117,7 +117,6 @@ eventEmitter.emit('scream');
 ```sh 
 npm install upper-case
 ```
-
 - Using a Package
 
 ```js
@@ -294,6 +293,7 @@ const server = app.listen(8081, () => {
   - cookie-parser - Parse cookie header
   - cors - Enable cross-origin resource sharing (CORS)
   - morgan - HTTP request logger
+
 ```js
 const express = require('express')
 const app = express()
