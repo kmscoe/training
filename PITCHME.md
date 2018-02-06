@@ -345,8 +345,8 @@ npm start
 
 
 +++
-@title[Node.js - Express Generator]
-
+@title[Node.js - Project structure]
+### Express Generator - Project structure
 ```sh
 .
 ├── app.js
@@ -367,3 +367,7 @@ npm start
     └── layout.pug
 
 ```
+
+---
+@title[Node.js - Thank you]
+### Thank you
