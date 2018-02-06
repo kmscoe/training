@@ -30,6 +30,7 @@
 - Install
 - Create a file named "myfirst.js":
 - Run `node myfirst.js`
+
 ```js
 const http = require('http');
 
@@ -91,8 +92,8 @@ http.createServer( (req, res) => {
 
 @title[Event module]
 ### Event module
-- Node.js has a built-in module, called "Events", where you can create-, fire-, and listen for- your own events.
-- All event properties and methods are an instance of an EventEmitter object
+- create-, fire-, and listen for- your own events.
+- Instance of an EventEmitter object
 
 ```js
 const events = require('events');
@@ -111,7 +112,12 @@ eventEmitter.emit('scream');
 ### NPM 
 - Package manager for Node.js packages
 - www.npmjs.com.
-- Download a Package `npm install upper-case`
+- Download a Package 
+
+```sh 
+npm install upper-case
+```
+
 - Using a Package
 
 ```js
@@ -125,7 +131,11 @@ upperCase('string')       //=> "STRING"
 @title[Node.js MongoDB]
 ### Node.js MongoDB Driver
 - Install Mongo
-- Install MongoDB Driver `npm install mongodb --save`
+- Install MongoDB Driver 
+```sh
+npm install mongodb --save
+```
+
 - http://mongodb.github.io/node-mongodb-native/3.0/quick-start/quick-start/
 - Creating a Database
 - Insert a Document
@@ -309,10 +319,26 @@ app.use( (req, res, next)=> {
 @title[Node.js - Express Generator]
 ### Node.js - Express Generator
 - Quickly create an application skeleton
-- Install `npm install express-generator -g`
-- Create an Express app `express --view=pug myapp`
-- Install packages `npm install`
-- Run the app  `npm start`
+- Install 
+```sh
+npm install express-generator -g
+```
+
+- Create an Express app 
+```sh
+express --view=pug myapp
+```
+
+- Install packages 
+```sh
+npm install
+```
+
+- Run the app  
+```sh
+npm start
+```
+
 
 +++
 @title[Node.js - Express Generator]
