@@ -342,8 +342,6 @@ npm install
 ```sh
 npm start
 ```
-
-
 +++
 @title[Node.js - Project structure]
 ### Project structure
