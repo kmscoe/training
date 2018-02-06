@@ -16,6 +16,13 @@
 - Eliminates the waiting
 - Runs single-threaded, non-blocking
 ---
+@title[NodeJs Architecture]
+### NodeJs Architecture
+<img src="images/nodejs_architecture.png"
+     alt="NodeJs Architecture"
+     />
+     
+---
 
 @title[Getting started with Node]
 ### Getting started with Node
