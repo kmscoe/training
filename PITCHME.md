@@ -26,24 +26,25 @@
 
 @title[Getting started with Node]
 ### Getting started with Node
-- Download and Install Node for your machine at: https://nodejs.org/
-- Click on the big green Install button
-- Create a Node.js file named "myfirst.js", and add the following code:
-
+- Download https://nodejs.org/
+- Install
+- Create a file named "myfirst.js":
+- Run `node myfirst.js`
 ```js
-var http = require('http');
+const http = require('http');
 
-http.createServer(function (req, res) {
+http.createServer( (req, res) => {
     res.writeHead(200, {'Content-Type': 'text/html'});
     res.end('Hello World!');
 }).listen(8080);
 ```
 ---
-@title[Node.js Modules]
-### Node.js Modules
+@title[Node.js Built-in Modules]
+### Node.js Built-in Modules
 - Http module
 - File system
 - Event module
+- ...
 
 +++
 
@@ -51,13 +52,13 @@ http.createServer(function (req, res) {
 ### Http Module
 
 ```js
-var http = require('http');
-var url = require('url');
+const http = require('http');
+const url = require('url');
 
-http.createServer(function (req, res) {
+http.createServer( (req, res) => {
   res.writeHead(200, {'Content-Type': 'text/html'});
-  var q = url.parse(req.url, true).query;
-  var txt = q.year + " " + q.month;
+  const q = url.parse(req.url, true).query;
+  const txt = q.year + " " + q.month;
   res.end(txt);
 }).listen(8080);
 ```
@@ -76,10 +77,10 @@ http.createServer(function (req, res) {
 ```
 
 ```js
-var http = require('http');
-var fs = require('fs');
-http.createServer(function (req, res) {
-  fs.readFile('demofile1.html', function(err, data) {
+const http = require('http');
+const fs = require('fs');
+http.createServer( (req, res) => {
+  fs.readFile('demofile1.html', (err, data) => {
     res.writeHead(200, {'Content-Type': 'text/html'});
     res.write(data);
     res.end();
@@ -94,10 +95,10 @@ http.createServer(function (req, res) {
 - All event properties and methods are an instance of an EventEmitter object
 
 ```js
-var events = require('events');
-var eventEmitter = new events.EventEmitter();
+const events = require('events');
+const eventEmitter = new events.EventEmitter();
 //Create an event handler:
-var myEventHandler = function () {
+const myEventHandler =  () => {
   console.log('I hear a scream!');
 }
 //Assign the event handler to an event:
@@ -108,73 +109,80 @@ eventEmitter.emit('scream');
 ---
 @title[NPM]
 ### NPM 
-- NPM is a package manager for Node.js packages, or modules
-- www.npmjs.com hosts thousands of free packages to download and use.
-- Download a Package
+- Package manager for Node.js packages
+- www.npmjs.com.
+- Download a Package `npm install upper-case`
 - Using a Package
 
-```sh
-C:\Users\Your Name>npm install upper-case
-```
-
 ```js
-var uc = require('upper-case');
+const upperCase = require('upper-case')
+ 
+upperCase(null)           //=> "" 
+upperCase('string')       //=> "STRING" 
 ```
 ---
 
 @title[Node.js MongoDB]
-### Node.js MongoDB
+### Node.js MongoDB Driver
 - Install Mongo
-- Install MongoDB Driver
-
-```sh
-C:\Users\Your Name>npm install mongodb
-```
+- Install MongoDB Driver `npm install mongodb --save`
+- http://mongodb.github.io/node-mongodb-native/3.0/quick-start/quick-start/
 - Creating a Database
-- Creating a Collection
+- Insert a Document
 
 +++ 
 
 @title[Creating a Database]
 ### Creating a Database 
-- MongoDB will create the database if it does not exist, and make a connection to it.
-
 ```js
-var MongoClient = require('mongodb').MongoClient;
-var url = "mongodb://localhost:27017/mydb";
+const MongoClient = require('mongodb').MongoClient;
+// Connection URL
+const url = 'mongodb://localhost:27017';
+// Database Name
+const dbName = 'myproject';
+// Use connect method to connect to the server
+MongoClient.connect(url, function(err, client) {
+  console.log("Connected successfully to server");
 
-MongoClient.connect(url, function(err, db) {
-  if (err) throw err;
-  console.log("Database created!");
-  db.close();
+  const db = client.db(dbName);
+  client.close();
 });
 ```
 +++ 
 
-@title[Creating a Collection]
+@title[Insert a Document]
 ### Creating a Collection
-- To create a collection in MongoDB, use the createCollection() method:
-
 ```js
-var MongoClient = require('mongodb').MongoClient;
-var url = "mongodb://localhost:27017/";
- 
+const MongoClient = require('mongodb').MongoClient;
+// Connection URL
+const url = 'mongodb://localhost:27017';
+// Database Name
+const dbName = 'myproject';
+// Use connect method to connect to the server
 MongoClient.connect(url, function(err, client) {
-  if (err) throw err;
-  const db = client.db('mydb');
-  db.createCollection("customers", function(err, res) {
+  console.log("Connected successfully to server");
+
+  const db = client.db(dbName);
+  const collection = db.collection('documents');
+
+  collection.insertMany([
+    {a : 1}, {a : 2}, {a : 3}
+  ], (err, result) => {
     if (err) throw err;
-    console.log("Collection created!");
+    
+    console.log("Inserted 3 documents into the collection");
     client.close();
   });
 });
 ```
+
 ---
 @title[Node.js - Express Framework]
 ### Node.js - Express Framework
-- Allows to set up middlewares to respond to HTTP Requests.
-- Defines a routing table which is used to perform different actions based on HTTP Method and URL.
-- Allows to dynamically render HTML Pages based on passing arguments to templates.
+- Web framework for Node.js
+- Middlewares to respond to HTTP Requests.
+- Routing table
+- View templates
 
 ```sh
 $ npm install express --save
@@ -185,16 +193,16 @@ $ npm install express --save
 ### Hello world Example
 
 ```js
-var express = require('express');
-var app = express();
+const express = require('express');
+const app = express();
 
-app.get('/', function (req, res) {
+app.get('/', (req, res) => {
    res.send('Hello World');
 })
 
-var server = app.listen(8081, function () {
-   var host = server.address().address
-   var port = server.address().port
+const server = app.listen(8081, () => {
+   const host = server.address().address
+   const port = server.address().port
    
    console.log("Example app listening at http://%s:%s", host, port)
 })
@@ -204,43 +212,43 @@ var server = app.listen(8081, function () {
 ### Basic Routing
 
 ```js
-var express = require('express');
-var app = express();
+const express = require('express');
+const app = express();
 
 // This responds with "Hello World" on the homepage
-app.get('/', function (req, res) {
+app.get('/', (req, res) => {
    console.log("Got a GET request for the homepage");
    res.send('Hello GET');
 })
 
 // This responds a POST request for the homepage
-app.post('/', function (req, res) {
+app.post('/', (req, res) => {
    console.log("Got a POST request for the homepage");
    res.send('Hello POST');
 })
 
 // This responds a DELETE request for the /del_user page.
-app.delete('/del_user', function (req, res) {
+app.delete('/del_user', (req, res) => {
    console.log("Got a DELETE request for /del_user");
    res.send('Hello DELETE');
 })
 
 // This responds a GET request for the /list_user page.
-app.get('/list_user', function (req, res) {
+app.get('/list_user', (req, res) => {
    console.log("Got a GET request for /list_user");
    res.send('Page Listing');
 })
 
 // This responds a GET request for abcd, abxcd, ab123cd, and so on
-app.get('/ab*cd', function(req, res) {   
+app.get('/ab*cd',(req, res) => {   
    console.log("Got a GET request for /ab*cd");
    res.send('Page Pattern Match');
 })
 
-var server = app.listen(8081, function () {
+const server = app.listen(8081, () => {
 
-   var host = server.address().address
-   var port = server.address().port
+   const host = server.address().address
+   const port = server.address().port
 
    console.log("Example app listening at http://%s:%s", host, port)
 })
@@ -249,23 +257,83 @@ var server = app.listen(8081, function () {
 
 @title[Serving Static Files]
 ### Serving Static Files
-- Express provides a built-in middleware express.static to serve static files, such as images, CSS, JavaScript, etc.
+- Built-in middleware `express.static `to serve static files.
 
 ```js
-var express = require('express');
-var app = express();
+const express = require('express');
+const app = express();
 
 app.use(express.static('public'));
 
-app.get('/', function (req, res) {
+app.get('/', (req, res) => {
    res.send('Hello World');
 })
 
-var server = app.listen(8081, function () {
-   var host = server.address().address
-   var port = server.address().port
+const server = app.listen(8081, () => {
+   const host = server.address().address
+   const port = server.address().port
 
    console.log("Example app listening at http://%s:%s", host, port)
 
 })
+```
+---
+@title[Node.js - Express middleware]
+  - https://expressjs.com/en/resources/middleware.html
+  - body-parser - Parse HTTP request body
+  - cookie-parser - Parse cookie header
+  - cors - Enable cross-origin resource sharing (CORS)
+  - morgan - HTTP request logger
+```js
+const express = require('express')
+const app = express()
+const cookieParser = require('cookie-parser')
+
+// load the cookie-parsing middleware
+app.use(cookieParser())
+```
++++
+@title[Node.js - Express middleware]
+```js
+const app = express()
+app.use( (req, res, next)=> {
+  console.log('Time:', Date.now());
+  next();
+})
+```
+<img src="images/middleware.jpg"
+     alt="Middelware"
+     />
+
+---
+@title[Node.js - Express Generator]
+### Node.js - Express Generator
+- Quickly create an application skeleton
+- Install `npm install express-generator -g`
+- Create an Express app `express --view=pug myapp`
+- Install packages `npm install`
+- Run the app  `npm start`
+
++++
+@title[Node.js - Express Generator]
+
+```sh
+.
+├── app.js
+├── bin
+│   └── www
+├── package.json
+├── public
+│   ├── images
+│   ├── javascripts
+│   └── stylesheets
+│       └── style.css
+├── routes
+│   ├── index.js
+│   └── users.js
+└── views
+    ├── error.pug
+    ├── index.pug
+    └── layout.pug
+
 ```
